@@ -95,10 +95,9 @@ CN_PROJECT1/
 │   └── init.sql
 │
 ├── snmp/
-│   └── snmpd.conf/
-│       └── snmpd.conf
-│
-└── docker-compose.yml
+   └── snmpd.conf/
+       └── snmpd.conf
+
 ```
 
 ## Components
@@ -202,7 +201,7 @@ The collector also handles counter resets by checking whether a newly received c
 
 ## Running the System Manually
 
-The project can be run manually with Docker without Docker Compose.
+The project can be run manually with Docker .
 
 ### Prerequisites
 
@@ -231,13 +230,13 @@ docker run -d \
 
 ```bash
 docker run -d \
-  --name snmp-device-2 \
+  --name snmp-device \
   --network network-lab \
+  -p 160:161/udp \
   -v "$(pwd)/snmp/snmpd.conf/snmpd.conf:/etc/snmp/snmpd.conf:ro" \
   polinux/snmpd
 ```
 
-The second device does not need another host-side UDP port because the collector communicates with both devices through the Docker network.
 
 ### 4. Start PostgreSQL
 
@@ -448,5 +447,4 @@ The collector maintains a configurable list of monitored devices. A new device c
 
 - The current collector configuration monitors a configured interface index for the interface counters used in bandwidth and utilization calculations.
 - The Docker SNMP containers are simulations of SNMP-enabled network devices and can be replaced by authorized physical or virtual devices with suitable SNMP configuration.
-- `docker-compose.yml` is included as infrastructure configuration, but the manual Docker workflow above is sufficient to run the application.
 - Grafana dashboards and datasource settings are configured through the Grafana interface in the current setup.
