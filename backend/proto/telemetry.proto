@@ -1,0 +1,16 @@
+syntax="proto3";
+
+service TelemetryService{ rpc SendMetrics (TelemetryData) returns (TelemetryAck);}
+
+message TelemetryData{
+    string device_name=1;
+    double incoming_bps=2;
+    double outgoing_bps=3;
+    double incoming_utilization=4;
+    double outgoing_utilization=5;
+    double latency_ms=6;
+    int64 timestamp=7;
+}
+message TelemetryAck{
+    string status =1;
+}
